@@ -1,24 +1,48 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" novalidate>
         @csrf
 
-        <!-- Name -->
+        <!-- Nombre completo -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-label for="name" :value="__('Nombre completo')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
-        <!-- Email Address -->
+        <!-- Correo -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-input-label for="email" :value="__('Correo')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- Matricula -->
+        <div class="mt-4">
+            <x-input-label for="matricula" :value="__('Matricula')" />
+            <x-text-input id="matricula" class="block mt-1 w-full" type="text" name="matricula" maxlength="10" :value="old('matricula')"  />
+            <x-input-error :messages="$errors->get('matricula')" class="mt-2" />
+        </div>
+
+        <!-- Grupo -->
+        <div class="mt-4">
+            <x-input-label for="grupo" :value="__('Grupo')" />
+            <x-text-input id="grupo" class="block mt-1 w-full" type="text" name="grupo" maxlength="5" :value="old('grupo')" />
+            <x-input-error :messages="$errors->get('grupo')" class="mt-2" />
+        </div>
+
+        <!-- Carrera -->
+        <div class="mt-4">
+            <x-input-label for="carrera" :value="__('Carrera')" />
+            <select name="rol" id="rol" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
+                <option value="">Selecciona un rol</option>
+                
+            </select>
+            <x-input-error :messages="$errors->get('Carrera')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Contraseña')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -30,7 +54,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
@@ -50,3 +74,10 @@
         </div>
     </form>
 </x-guest-layout>
+
+{{-- 
+    Matricula
+    Grupo
+    Carrera
+    --}}
+
