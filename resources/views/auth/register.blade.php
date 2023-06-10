@@ -19,7 +19,7 @@
         <!-- Matricula -->
         <div class="mt-4">
             <x-input-label for="matricula" :value="__('Matricula')" />
-            <x-text-input id="matricula" class="block mt-1 w-full" type="text" name="matricula" maxlength="10" :value="old('matricula')"  />
+            <x-text-input id="matricula" class="block mt-1 w-full" type="number" name="matricula" maxlength="10" :value="old('matricula')"  />
             <x-input-error :messages="$errors->get('matricula')" class="mt-2" />
         </div>
 
@@ -33,11 +33,13 @@
         <!-- Carrera -->
         <div class="mt-4">
             <x-input-label for="carrera" :value="__('Carrera')" />
-            <select name="rol" id="rol" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
-                <option value="">Selecciona un rol</option>
-                
+            <select name="carrera" id="carrera" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full mt-1">
+                <option value="">Selecciona una carrera </option>
+                @foreach ($carreras as $carrera)
+                    <option value="{{ $carrera->id }}">{{ $carrera->descripcion }}</option>
+                @endforeach
             </select>
-            <x-input-error :messages="$errors->get('Carrera')" class="mt-2" />
+            <x-input-error :messages="$errors->get('carrera')" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -63,13 +65,17 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        @if (Session::has('mensaje'))
+            <x-input-error :messages="Session::get('mensaje')" class="mt-2 text-green-700" />
+        @endif
+
+        <div class="flex items-center justify-between flex-col-reverse mt-8 gap-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __('¿Ya estás registrado?') }}
             </a>
 
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
+            <x-primary-button class="w-full justify-center">
+                {{ __('Registrar') }}
             </x-primary-button>
         </div>
     </form>
