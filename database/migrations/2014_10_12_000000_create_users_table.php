@@ -34,8 +34,15 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void{
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['turno_id']);
+            $table->dropForeign(['carrera_id']);
+            $table->dropForeign(['esquema_id']);
+            $table->dropForeign(['grado_id']);
+        });
+
         Schema::dropIfExists('users');
     }
 };
