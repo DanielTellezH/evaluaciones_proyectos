@@ -46,13 +46,27 @@ class CreateProyecto extends Component{
             $attributes['hashname'] = $hashName;
         }
 
-        auth()->user()->proyecto()->updateOrCreate(
+        // Se crea o actualiza el usuario
+        $proyecto = auth()->user()->proyecto()->updateOrCreate(
             ['id' => $this->proyecto_id], // Condiciones de búsqueda
             $attributes
         );
 
-        // Redireccionar al usuario a los integrantes
-        return redirect()->route('proyecto.integrantes');
+        if ( ! $this->proyecto_id ) {
+            // Se crea el primer integrante, será el usuario autenticado
+            $proyecto->integrantes()->create([
+                'user_id' => auth()->id()
+            ]);
+        }
+
+        // Redirecciona dependiendo si existe o no el proyecto
+        if ( $this->proyecto_id ) {
+            // Redireccionar al usuario a los integrantes
+            return redirect()->route('proyecto.index');
+        }else{
+            // Redireccionar al usuario a los integrantes
+            return redirect()->route('proyecto.integrantes');
+        }
     }
     
     public function eliminarProyecto(){

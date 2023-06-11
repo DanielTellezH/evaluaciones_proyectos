@@ -1,3 +1,6 @@
+@php
+    $integrante = \App\Models\Integrante::where('user_id', auth()->id())->first();
+@endphp
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,23 +14,31 @@
                     Sistema de Evaluación de Proyectos de Ingeniería
                 </h4>
             </div>
-
+            
             <!-- Navigation Links -->
             <div class="flex">
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Ver proyecto') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('proyecto.create')" :active="request()->routeIs('proyecto.create')">
-                        {{ __('Crear proyecto') }}
-                    </x-nav-link>
-                    @if ( auth()->user()->proyecto )
-                        <x-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
-                            {{ __('Integrantes y Asesores') }}
+                    @if ( auth()->user()->proyecto or $integrante )
+                        <x-nav-link :href="route('proyecto.index')" :active="request()->routeIs('proyecto.index')">
+                            {{ __('Ver proyecto') }}
                         </x-nav-link>
+                    @endif
+                    @if ( auth()->user()->proyecto or ! $integrante )
+                        <x-nav-link :href="route('proyecto.create')" :active="request()->routeIs('proyecto.create')">
+                            @if ( auth()->user()->proyecto )
+                                {{ __('Editar proyecto') }}
+                            @else
+                                {{ __('Crear proyecto') }}
+                            @endif
+                        </x-nav-link>
+                        @if ( auth()->user()->proyecto )
+                            <x-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
+                                {{ __('Integrantes y Asesores') }}
+                            </x-nav-link>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -49,7 +60,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Configuración') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -59,7 +70,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Cerrar sesión') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -84,16 +95,24 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Ver proyecto') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('proyecto.create')" :active="request()->routeIs('proyecto.create')">
-                {{ __('Crear proyecto') }}
-            </x-responsive-nav-link>
-            @if ( auth()->user()->proyecto )
-                <x-responsive-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
-                    {{ __('Integrantes y Asesores') }}
+            @if ( auth()->user()->proyecto or $integrante )
+                <x-responsive-nav-link :href="route('proyecto.index')" :active="request()->routeIs('proyecto.index')">
+                    {{ __('Ver proyecto') }}
                 </x-responsive-nav-link>
+            @endif
+            @if ( auth()->user()->proyecto or ! $integrante )
+                <x-responsive-nav-link :href="route('proyecto.create')" :active="request()->routeIs('proyecto.create')">
+                    @if ( auth()->user()->proyecto )
+                        {{ __('Editar proyecto') }}
+                    @else
+                        {{ __('Crear proyecto') }}
+                    @endif
+                </x-responsive-nav-link>
+                @if ( auth()->user()->proyecto )
+                    <x-responsive-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
+                        {{ __('Integrantes y Asesores') }}
+                    </x-responsive-nav-link>
+                @endif
             @endif
         </div>
 
@@ -106,7 +125,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Configuración') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -116,7 +135,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Cerrar sesión') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

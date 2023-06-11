@@ -26,7 +26,7 @@ Route::get('/dashboard', function () {
 
 // Rutas para los post's
 Route::group(['prefix' => 'proyecto', 'controller' => AlumnoController::class], function () {
-    // Route::get('/', 'index')->name('proyecto.index');
+    Route::get('/', 'index')->name('proyecto.index');
     Route::get('/create', 'create')->name('proyecto.create');
     Route::get('/integrantes', 'integrantes')->name('proyecto.integrantes');
     Route::get('/edit/{vacante:id}', 'edit')->name('proyecto.edit');

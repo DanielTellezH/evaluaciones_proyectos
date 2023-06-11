@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Asesor;
 use App\Models\Integrante;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,10 @@ class Proyecto extends Model{
 
     public function integrantes(){
         return $this->hasMany(Integrante::class);
+    }
+
+    public function asesores(){
+        return $this->hasMany(Asesor::class);
     }
 
 }

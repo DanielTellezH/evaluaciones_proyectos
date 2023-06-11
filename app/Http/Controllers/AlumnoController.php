@@ -3,15 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Integrante;
+
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller{
     /**
      * Display a listing of the resource.
      */
-    // public function index(){
-    //     //
-    // }
+    public function index(){
+
+        $proyecto = auth()->user()->proyecto;
+
+        if( ! $proyecto ){
+            // Buscar al usuario autenticado en el modelo Integrante
+            $integrante = Integrante::where('user_id', auth()->id())->first();
+    
+            // El usuario es un integrante, obtener el proyecto asignado
+            $proyecto = $integrante->proyecto;
+        }
+
+
+        return view('proyecto.index', compact('proyecto'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -22,6 +36,9 @@ class AlumnoController extends Controller{
         return view('proyecto.create', compact('proyecto'));
     }
     
+    /**
+     * Muestra la sección para agregar integrantes o asesores.
+     */
     public function integrantes(){
         $proyecto = auth()->user()->proyecto;
 

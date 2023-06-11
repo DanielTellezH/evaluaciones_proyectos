@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('sinodales', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
             $table->foreignId('proyecto_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
