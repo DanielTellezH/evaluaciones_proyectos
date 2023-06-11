@@ -50,7 +50,7 @@
         Livewire.on('btn_eliminarIntegrante', ({ id, name }) => {
             Swal.fire({
                 title: '¿Eliminar integrante?',
-                text: "Si eliminas el integrante, no lo podrás recuperar.",
+                text: "Si eliminas el integrante, tendrás que asignarlo de nuevo.",
                 footer: name,
                 icon: 'warning',
                 showCancelButton: true,
@@ -66,7 +66,7 @@
         Livewire.on('btn_eliminarAsesor', ({ id, name }) => {
             Swal.fire({
                 title: '¿Eliminar asesor?',
-                text: "Si eliminas el asesor, no lo podrás recuperar.",
+                text: "Si eliminas el asesor, tendrás que asignarlo de nuevo.",
                 footer: name,
                 icon: 'warning',
                 showCancelButton: true,
