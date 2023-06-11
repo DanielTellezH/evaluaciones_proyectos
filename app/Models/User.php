@@ -24,6 +24,7 @@ class User extends Authenticatable
         'matricula',
         'grupo',
         'carrera_id',
+        'turno_id',
         'password',
     ];
 
