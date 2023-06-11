@@ -57,16 +57,12 @@ class CreateIntegrantes extends Component{
 
     public function tipoChange(){
         
-        // Se crea el id del proyecto para usarlo en los where
-        $proyectoId = $this->proyecto->id;
-
         if ($this->tipo_miembro === 'integrante') {
             $this->integrantes = User::where('esquema_id', 4)
                 ->where('id', '<>', auth()->id())
-                ->whereNotIn('id', function ($query) use ($proyectoId) {
+                ->whereNotIn('id', function ($query) {
                     $query->select('user_id')
-                        ->from('integrantes')
-                        ->where('proyecto_id', $proyectoId);
+                        ->from('integrantes');
                 })
                 ->select('id', 'name')
                 ->get();
