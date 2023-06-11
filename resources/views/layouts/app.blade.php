@@ -5,57 +5,57 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }} | @yield('titulo')</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <style>
-            input:-webkit-autofill,
-            input:-webkit-autofill:hover,
-            input:-webkit-autofill:focus,
-            input:-webkit-autofill:active {
-                -webkit-text-fill-color: black !important;
-                -webkit-box-shadow: 0 0 0px 1000px white inset;
-            }
-            .swal2-styled.swal2-confirm{
-                background-color: #1e293b !important;
-            }
-            .swal2-styled.swal2-confirm:focus{
-                box-shadow: 0 0 0 3px rgb(30 41 59 / 30%) !important;
-            }
-            .swal2-styled.swal2-cancel{
-                background-color: rgb(255 255 255) !important;
-                color: #1e293b !important;
-                border: 1px solid !important;
-            }
-            .swal2-footer{
-                font-weight: 600;
-                font-size: 1.05em;
-            }
-        </style>
-
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        {{-- Estilos extra --}}
+        @livewireStyles
+
+        <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+        
+        @stack('styles')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            @if (isset($header))
+            @hasSection('titulo')
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                            @yield('titulo')
+                        </h2>
                     </div>
                 </header>
             @endif
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <div class="py-12">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        @hasSection('mensaje')
+                            <div class="uppercase border text-sm border-green-600 bg-green-100 text-green-600 font-bold p-2 my-3">
+                                @yield('mensaje')
+                            </div>
+                        @endif
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            @yield('contenido')
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
+
+        <!-- Scripts -->
+        @livewireScripts
+
+        @stack('scripts')
     </body>
 </html>
