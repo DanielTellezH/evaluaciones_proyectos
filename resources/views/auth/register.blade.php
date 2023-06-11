@@ -66,7 +66,7 @@
         </div>
 
         @if (Session::has('mensaje'))
-            <x-input-error :messages="Session::get('mensaje')" class="mt-2 text-green-700" />
+            <x-input-error :messages="Session::get('mensaje')" class="mt-2 !text-green-700" />
         @endif
 
         <div class="flex items-center justify-between flex-col-reverse mt-8 gap-4">
