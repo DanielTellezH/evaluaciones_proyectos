@@ -21,6 +21,9 @@ class Proyecto extends Model{
 
     protected $fillable = [
         'titulo',
+        'fecha_entrega',
+        'fecha_entrega_2',
+        'fecha_entrega_3',
         'hashname',
     ];
 

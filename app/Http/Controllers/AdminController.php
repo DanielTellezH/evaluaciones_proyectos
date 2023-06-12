@@ -37,7 +37,7 @@ class AdminController extends Controller{
      * Display the specified resource.
      */
     public function fechas(Proyecto $proyecto){
-        dd($proyecto);
+        return view('proyectos.fechas', compact('proyecto'));
     }
 
     /**
