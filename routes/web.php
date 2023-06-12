@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,16 +26,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Rutas para los post's
+// Rutas para el proyecto
 Route::group(['prefix' => 'proyecto', 'controller' => AlumnoController::class], function () {
     Route::get('/', 'index')->name('proyecto.index');
     Route::get('/create', 'create')->name('proyecto.create');
     Route::get('/integrantes', 'integrantes')->name('proyecto.integrantes');
-    Route::get('/edit/{vacante:id}', 'edit')->name('proyecto.edit');
-    Route::get('/{vacante:hashname}', 'show')->name('proyecto.show');
-    // Route::delete('/create/{post}', 'destroy')->name('proyecto.destroy'); // Guarda solo la imagen, y no el registro completo
-    // Route::post('/create/imagen/store', 'store')->name('proyecto.imagen.store'); // Guarda solo la imagen, y no el registro completo
-    // Route::get('/{user:username}', 'profile')->name('proyecto.profile');
+});
+
+// Rutas para el proyectos
+Route::group(['prefix' => 'proyectos', 'controller' => AdminController::class], function () {
+    Route::get('/', 'index')->name('proyectos.index');
+    Route::get('/entregas', 'entregas')->name('proyectos.entregas');
+    Route::get('/fechas/{proyecto:hashname}', 'fechas')->name('proyectos.fechas');
+    // Route::get('/integrantes', 'integrantes')->name('proyectos.integrantes');
 });
 
 Route::middleware('auth')->group(function () {

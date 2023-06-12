@@ -8,13 +8,13 @@
     {{-- Crear proyecto o eliminar --}}
     <div class="flex justify-between">
         <x-primary-button>
-            @if ($isEdit)
+            @if ( $isEdit )
                 {{ __('Editar proyecto') }}   
             @else
                 {{ __('Crear proyecto') }}
             @endif
         </x-primary-button>
-        @if ($isEdit)
+        @if ( $isEdit and $proyecto->entregas->count() == 0 )
             <x-primary-button type="button" wire:click="$emit('btn_eliminarProyecto', { id: {{ $proyecto->id }} } )" class="!bg-transparent !text-red-600 !font-bold !text-sm">
                 {{ __('Eliminar proyecto') }}   
             </x-primary-button>

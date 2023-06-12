@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Alumno;
 use App\Models\Integrante;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller{
+
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('esquema.creador')->except('index');
+        $this->middleware('esquema.alumno');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -23,8 +31,44 @@ class AlumnoController extends Controller{
             $proyecto = $integrante->proyecto;
         }
 
+        // Logica de las entregas
 
-        return view('proyecto.index', compact('proyecto'));
+        $fechaEntrega = null;
+        $fechaLimite = null;
+        $entregable = null;
+
+        $numEntregas = $proyecto->entregas->count();
+
+        switch ( $numEntregas ) {
+            case 0:
+                $fechaLimite    = $proyecto->fecha_entrega ? $proyecto->fecha_entrega->format('YmdHis') : null;
+                $fechaEntrega = $proyecto->fecha_entrega ? $proyecto->fecha_entrega->format('d/m/Y h:i A') : null;
+            break;
+            case 1:
+                $fechaLimite    = $proyecto->fecha_entrega_2 ? $proyecto->fecha_entrega_2->format('YmdHis') : null;
+                $fechaEntrega = $proyecto->fecha_entrega_2 ? $proyecto->fecha_entrega_2->format('d/m/Y h:i A') : null;
+            break;
+            case 2:
+                $fechaLimite    = $proyecto->fecha_entrega_3 ? $proyecto->fecha_entrega_3->format('YmdHis') : null;
+                $fechaEntrega = $proyecto->fecha_entrega_3 ? $proyecto->fecha_entrega_3->format('d/m/Y h:i A') : null;
+            break;
+        }
+
+        $hoy = Carbon::now()->timezone('America/Mexico_City');
+        $hoy = $hoy->format('YmdHis');
+
+        $entregable = ($hoy <= $fechaLimite) ? true : false;      
+        
+
+        $context = [
+            'proyecto' => $proyecto,
+            'fechaLimite' => $fechaLimite,
+            'fechaEntrega' => $fechaEntrega,
+            'entregable' => $entregable,
+            'entregas' => $numEntregas,
+        ];
+
+        return view('proyecto.index', $context);
     }
 
     /**
@@ -43,40 +87,5 @@ class AlumnoController extends Controller{
         $proyecto = auth()->user()->proyecto;
 
         return view('proyecto.integrantes', compact('proyecto'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request){
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Alumno $alumno){
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Alumno $alumno){
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Alumno $alumno){
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Alumno $alumno){
-        //
     }
 }

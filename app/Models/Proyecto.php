@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\Asesor;
+use App\Models\Entrega;
 use App\Models\Integrante;
+use App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,10 +13,20 @@ use Illuminate\Database\Eloquent\Model;
 class Proyecto extends Model{
     use HasFactory;
 
+    protected $casts = [ 
+        'fecha_entrega' => 'datetime',
+        'fecha_entrega_2' => 'datetime',
+        'fecha_entrega_3' => 'datetime',
+    ];
+
     protected $fillable = [
         'titulo',
         'hashname',
     ];
+
+    public function entregas(){
+        return $this->hasMany(Entrega::class);
+    }
 
     public function integrantes(){
         return $this->hasMany(Integrante::class);
@@ -22,6 +34,10 @@ class Proyecto extends Model{
 
     public function asesores(){
         return $this->hasMany(Asesor::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
 }
