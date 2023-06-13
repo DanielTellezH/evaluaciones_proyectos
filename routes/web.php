@@ -36,7 +36,8 @@ Route::group(['prefix' => 'proyecto', 'controller' => AlumnoController::class], 
 // Rutas para el proyectos
 Route::group(['prefix' => 'proyectos', 'controller' => AdminController::class], function () {
     Route::get('/', 'index')->name('proyectos.index');
-    Route::get('/entregas', 'entregas')->name('proyectos.entregas');
+    Route::get('/entregas/{proyecto:hashname}', 'entregas')->name('proyectos.entregas');
+    Route::get('/calificar/{entrega:id}', 'calificar')->name('proyectos.calificar');
     Route::get('/fechas/{proyecto:hashname}', 'fechas')->name('proyectos.fechas');
     // Route::get('/integrantes', 'integrantes')->name('proyectos.integrantes');
 });

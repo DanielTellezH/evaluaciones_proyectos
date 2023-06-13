@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entrega;
 use App\Models\Proyecto;
 
 use Illuminate\Http\Request;
@@ -29,8 +30,8 @@ class AdminController extends Controller{
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){
-        //
+    public function entregas(Proyecto $proyecto){
+        return view('proyectos.entregas', compact('proyecto'));
     }
 
     /**
@@ -43,8 +44,8 @@ class AdminController extends Controller{
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id){
-        //
+    public function calificar(Entrega $entrega){
+        return view('proyectos.calificar', compact('entrega'));
     }
 
     /**

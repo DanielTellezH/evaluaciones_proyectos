@@ -19,7 +19,7 @@
                     </p>
                 </div>
                 <div class="mt-4 md:mt-0 flex flex-col">
-                    <a href="#" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
+                    <a href="{{ route('proyectos.entregas', $proyecto->hashname ) }}" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
                         Ver entregas
                     </a>
                     <a href="{{ route('proyectos.fechas', $proyecto->hashname) }}" class="p-2 px-4 rounded-lg text-xs text-center font-bold uppercase cursor-pointer" style="position: relative; top: 8px;">
