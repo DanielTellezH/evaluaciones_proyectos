@@ -23,7 +23,7 @@
                             {{ __('Ver proyectos') }}
                         </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('proyecto.create')" :active="request()->routeIs('proyecto.create')">
+                    <x-nav-link :href="route('proyectos_asesor.index')" :active="request()->routeIs('proyectos_asesor.index')">
                         {{ __('Evaluar como asesor') }}
                     </x-nav-link>
                     <x-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
@@ -89,7 +89,7 @@
                     {{ __('Ver proyectos') }}
                 </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="route('proyecto.create')" :active="request()->routeIs('proyecto.create')">
+            <x-responsive-nav-link :href="route('proyectos_asesor.index')" :active="request()->routeIs('proyectos_asesor.index')">
                 {{ __('Evaluar como asesor') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">

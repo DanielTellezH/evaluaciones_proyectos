@@ -9,7 +9,7 @@
         Proyectos registrados
     </div>
 
-    <livewire:show-proyectos />
+    <livewire:show-proyectos :proyectos="$proyectos" />
 
 @endsection
 

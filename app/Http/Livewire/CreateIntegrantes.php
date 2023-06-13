@@ -73,7 +73,7 @@ class CreateIntegrantes extends Component{
             $this->asesores = null;
         }
         if ($this->tipo_miembro === 'asesor') {
-            $this->asesores = User::where('esquema_id', 2)
+            $this->asesores = User::whereIn('esquema_id', [1, 2])
                 ->whereNotIn('id', function ($query) use ($proyectoId) {
                     $query->select('user_id')
                         ->from('asesores')

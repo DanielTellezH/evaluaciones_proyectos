@@ -27,6 +27,13 @@
                             {{ $entrega->comentarios }}
                         </span>
                     </p>
+                    @if ( $entrega->atrasado )
+                        <p class="text-sm">
+                            <span class="font-bold text-red-600 text-sm underline">
+                                Entrega extemporánea
+                            </span>
+                        </p>
+                    @endif
                     @if ( $entrega->calificacion )
                         <p class="text-sm">
                             Calificación:

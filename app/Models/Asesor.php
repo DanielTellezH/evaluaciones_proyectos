@@ -14,6 +14,10 @@ class Asesor extends Model{
 
     protected $table = "asesores";
 
+    public function proyectos(){
+        return $this->hasMany(Proyecto::class);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

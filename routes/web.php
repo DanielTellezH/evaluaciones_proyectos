@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -33,13 +34,20 @@ Route::group(['prefix' => 'proyecto', 'controller' => AlumnoController::class], 
     Route::get('/integrantes', 'integrantes')->name('proyecto.integrantes');
 });
 
-// Rutas para el proyectos
+// Rutas para los proyectos (Profesor)
 Route::group(['prefix' => 'proyectos', 'controller' => AdminController::class], function () {
     Route::get('/', 'index')->name('proyectos.index');
     Route::get('/entregas/{proyecto:hashname}', 'entregas')->name('proyectos.entregas');
     Route::get('/calificar/{entrega:id}', 'calificar')->name('proyectos.calificar');
     Route::get('/fechas/{proyecto:hashname}', 'fechas')->name('proyectos.fechas');
-    // Route::get('/integrantes', 'integrantes')->name('proyectos.integrantes');
+});
+
+// Rutas para los proyectos (Asesor)
+Route::group(['prefix' => 'proyectos-asesor', 'controller' => AsesorController::class], function () {
+    Route::get('/', 'index')->name('proyectos_asesor.index');
+    Route::get('/entregas/{proyecto:hashname}', 'entregas')->name('proyectos_asesor.entregas');
+    Route::get('/calificar/{entrega:id}', 'calificar')->name('proyectos_asesor.calificar');
+    Route::get('/fechas/{proyecto:hashname}', 'fechas')->name('proyectos_asesor.fechas');
 });
 
 Route::middleware('auth')->group(function () {
