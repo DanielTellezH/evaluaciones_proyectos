@@ -1,12 +1,32 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Calificar entrega
+    @switch( auth()->user()->esquema_id )
+        @case(1)
+            Calificar entrega
+        @break
+        @case(2)
+            Realizar observación
+        @break                
+        @case(3)
+            Realizar evaluación
+        @break                
+    @endswitch
 @endsection
 
 @section('contenido')
     <div class="text-2xl font-bold text-center mt-10 mb-10">
-        Calificar entrega
+        @switch( auth()->user()->esquema_id )
+            @case(1)
+                Calificar entrega
+            @break
+            @case(2)
+                Realizar observación
+            @break                
+            @case(3)
+                Realizar evaluación
+            @break                
+        @endswitch
     </div>
 
     <livewire:create-calificacion :entrega="$entrega" />

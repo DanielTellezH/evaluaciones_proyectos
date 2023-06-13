@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'esquema.creador' => \App\Http\Middleware\EsquemaCreadorProyecto::class,
         'esquema.alumno' => \App\Http\Middleware\EsquemaAlumno::class,
         'esquema.profesor' => \App\Http\Middleware\EsquemaProfesor::class,
+        'entregas.middleware' => \App\Http\Middleware\EntregasMiddleware::class,
     ];
 }

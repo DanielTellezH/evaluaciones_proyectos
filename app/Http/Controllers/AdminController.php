@@ -11,7 +11,8 @@ class AdminController extends Controller{
 
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('esquema.profesor');
+        $this->middleware('esquema.profesor')->except('entregas', 'calificar');
+        $this->middleware('entregas.middleware')->only('entregas', 'calificar');
     }
 
     /**
@@ -19,7 +20,7 @@ class AdminController extends Controller{
      */
     public function index(){
         $proyectos = Proyecto::all();
-        return view('proyectos.index', $proyectos);
+        return view('proyectos.index', compact('proyectos'));
     }
 
     /**
@@ -34,6 +35,13 @@ class AdminController extends Controller{
      */
     public function fechas(Proyecto $proyecto){
         return view('proyectos.fechas', compact('proyecto'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function sinodales(Proyecto $proyecto){
+        return view('proyectos.sinodales', compact('proyecto'));
     }
 
     /**

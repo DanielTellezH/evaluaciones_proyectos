@@ -51,19 +51,45 @@
                 </div>
                 <div class="mt-4 md:mt-0 flex flex-col">
                     @can('create', App\Models\Proyecto::class)
-                        <a href="#" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
+                        <a href="{{ route('proyecto.entrega.comentarios', $entrega->id ) }}" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
                             Ver observaciones
                         </a>
                     @endcan
                     @cannot('create', App\Models\Proyecto::class)
-                        @if ( $entrega->calificacion )
+                        @if ( $entrega->calificacion and auth()->user()->esquema_id == 1 )
                             <a href="{{ route('proyectos.calificar', $entrega->id) }}" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
                                 Ver calificación
                             </a>
                         @else
-                            <a href="{{ route('proyectos.calificar', $entrega->id) }}" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
-                                Calificar
-                            </a>
+
+                            @if ( auth()->user()->esquema_id != 3 )
+                                <a href="{{ route('proyectos.calificar', $entrega->id) }}" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
+                                    @if ( auth()->user()->esquema_id == 1 )
+                                        Calificar
+                                    @endif
+                                    @if ( auth()->user()->esquema_id == 2 )
+                                        Observaciones
+                                    @endif
+                                </a>
+                            @else
+                                @if ( $entrega->num_entrega == 3 )
+                                    @if ( $proyecto->estatus == null )
+                                        <a href="{{ route('proyectos.calificar', $entrega->id) }}" class="bg-ipn py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
+                                            Evaluar
+                                        </a>
+                                    @else
+                                        @if ( $proyecto->estatus )
+                                            <p class="bg-blue-400 py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
+                                                Aprobado
+                                            </p>
+                                        @else
+                                            <p class="bg-red-500 py-2 px-4 rounded-lg text-white text-xs font-bold uppercase text-center">
+                                                Rechazado
+                                            </p>
+                                        @endif
+                                    @endif
+                                @endif
+                            @endif
                         @endif
                     @endcannot
                     <a href="{{ asset( 'storage/entregas/presentaciones/' . $entrega->presentacion ) }}" class="p-2 px-4 rounded-lg text-xs text-center font-bold uppercase cursor-pointer" style="position: relative; top: 8px;">

@@ -25,6 +25,7 @@ class Proyecto extends Model{
         'fecha_entrega_2',
         'fecha_entrega_3',
         'hashname',
+        'estatus',
     ];
 
     public function entregas(){
@@ -37,6 +38,10 @@ class Proyecto extends Model{
 
     public function asesores(){
         return $this->hasMany(Asesor::class);
+    }
+
+    public function sinodales(){
+        return $this->hasMany(Sinodal::class);
     }
 
     public function user(){

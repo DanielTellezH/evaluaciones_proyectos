@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Asesor extends Model{
+class Sinodal extends Model{
     use HasFactory;
+
+    protected $table = "sinodales";
 
     protected $fillable = [
         'user_id'
     ];
 
-    protected $table = "asesores";
-
     public function user(){
         return $this->belongsTo(User::class);
     }
-
 }

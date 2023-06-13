@@ -26,7 +26,7 @@
                     <x-nav-link :href="route('proyectos_asesor.index')" :active="request()->routeIs('proyectos_asesor.index')">
                         {{ __('Evaluar como asesor') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
+                    <x-nav-link :href="route('proyectos_sinodal.index')" :active="request()->routeIs('proyectos_sinodal.index')">
                         {{ __('Evaluar como sinodal') }}
                     </x-nav-link>
                 </div>
@@ -92,7 +92,7 @@
             <x-responsive-nav-link :href="route('proyectos_asesor.index')" :active="request()->routeIs('proyectos_asesor.index')">
                 {{ __('Evaluar como asesor') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('proyecto.integrantes')" :active="request()->routeIs('proyecto.integrantes')">
+            <x-responsive-nav-link :href="route('proyectos_sinodal.index')" :active="request()->routeIs('proyectos_sinodal.index')">
                 {{ __('Evaluar como sinodal') }}
             </x-responsive-nav-link>
         </div>

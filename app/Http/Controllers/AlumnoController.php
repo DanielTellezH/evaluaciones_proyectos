@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Entrega;
 use App\Models\Integrante;
 
 use Carbon\Carbon;
@@ -87,5 +88,12 @@ class AlumnoController extends Controller{
         $proyecto = auth()->user()->proyecto;
 
         return view('proyecto.integrantes', compact('proyecto'));
+    }
+    
+    /**
+     * Muestra la sección para agregar integrantes o asesores.
+     */
+    public function comentarios(Entrega $entrega){
+        return view('proyecto.comentarios', compact('entrega'));
     }
 }

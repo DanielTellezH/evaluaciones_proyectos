@@ -52,4 +52,8 @@ class User extends Authenticatable
         return $this->hasOne(Proyecto::class);
     }
 
+    public function esquema(){
+        return $this->belongsTo(Esquema::class);
+    }
+
 }
